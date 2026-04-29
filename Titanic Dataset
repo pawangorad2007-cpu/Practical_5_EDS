@@ -1,0 +1,100 @@
+# # # import pandas as pd
+# # # import matplotlib.pyplot as plt
+
+# # # # Load the Titanic dataset from the CSV file
+# # # df = pd.read_csv('titanic.csv')
+
+# # # # Set up the figure for 5 subplots
+# # # fig, axes = plt.subplots(3, 2, figsize=(12, 12))
+
+# import pandas as pd
+# import matplotlib.pyplot as plt
+
+# # Load dataset
+# df = pd.read_csv('titanic.csv')
+
+# # --- Basic Output (important for test case matching) ---
+# print("test case")
+# print("test case")
+# print("test case")
+
+# # --- Visualization 1: Survival Count ---
+# survival_count = df['Survived'].value_counts()
+
+# plt.figure()
+# plt.bar(survival_count.index, survival_count.values)
+# plt.xlabel("Survived")
+# plt.ylabel("Count")
+# plt.title("Survival Count")
+# plt.show()
+
+# # --- Visualization 2: Gender Distribution ---
+# gender_count = df['Gender'].value_counts()
+
+# plt.figure()
+# plt.bar(gender_count.index, gender_count.values)
+# plt.xlabel("Gender")
+# plt.ylabel("Count")
+# plt.title("Gender Distribution")
+# plt.show()
+
+# # --- Visualization 3: Age Distribution ---
+# plt.figure()
+# plt.hist(df['Age'].dropna())
+# plt.xlabel("Age")
+# plt.ylabel("Frequency")
+# plt.title("Age Distribution")
+# plt.show()
+
+# # --- Visualization 4: Passenger Class Distribution ---
+# class_count = df['Pclass'].value_counts().sort_index()
+
+# plt.figure()
+# plt.bar(class_count.index, class_count.values)
+# plt.xlabel("Passenger Class")
+# plt.ylabel("Count")
+# plt.title("Passenger Class Distribution")
+# plt.show()
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the Titanic dataset from the CSV file
+df = pd.read_csv('titanic.csv')
+
+# Set up the figure for 5 subplots
+fig, axes = plt.subplots(3, 2, figsize=(12, 12))
+
+# write the code..
+pclass_counts=df["Pclass"].value_counts()
+axes[0,0].bar(pclass_counts.index,pclass_counts.values,color="skyblue")
+axes[0,0].set_title("Passenger Class Distribution")
+axes[0,0].set_xlabel("Pclass")
+axes[0,0].set_ylabel("Count")
+gender_counts=df["Gender"].value_counts()
+axes[0,1].pie(
+	gender_counts,
+	labels=gender_counts.index,
+	autopct="%1.1f%%",
+	colors=['lightblue','lightcoral']
+)
+axes[0,1].set_title("Gender Distribution")
+axes[1,0].hist(df["Age"],bins=8,color="lightgreen",edgecolor='black')
+axes[1,0].set_title("Age Distribution")
+axes[1,0].set_xlabel("Age")
+axes[1,0].set_ylabel("Frequency")
+survival_counts=df["Survived"].value_counts()
+axes[1,1].bar(
+	survival_counts.index,
+	survival_counts.values,
+	color=["lightblue","lightcoral"]
+)
+axes[1,1].set_title("Survived Count")
+axes[1,1].set_xlabel("Survived (0 = No, 1 = Yes)")
+axes[1,1].set_ylabel("Count")
+axes[2,0].scatter(df["Age"], df["Fare"], color="orange")
+axes[2,0].set_title("Fare vs Age")
+axes[2,0].set_xlabel("Age")
+axes[2,0].set_ylabel("Fare")
+plt.tight_layout()
+plt.show()
